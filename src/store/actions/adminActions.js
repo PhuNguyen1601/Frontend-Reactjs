@@ -4,6 +4,8 @@ import {
   createNewUserService,
   getAllUsers,
   deleteUserService,
+  editUserService,
+  getTopDoctorHomeService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -138,7 +140,7 @@ export const fetchAllUsersSuccess = (userData) => ({
 export const fetchAllUsersFailed = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAILED,
 });
-
+//delete user
 export const deleteAUser = (userId) => {
   return async (dispatch, getState) => {
     try {
@@ -167,3 +169,51 @@ export const deleteUserSuccess = () => ({
 export const deleteUserFailed = () => ({
   type: actionTypes.DELETE_USER_FAILED,
 });
+//update user
+export const updateAUser = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await editUserService(data);
+      console.log("check api", res);
+      if (res && res.errCode === 0) {
+        toast.success("Update the user succeed!");
+        dispatch(updateUserSuccess());
+        dispatch(fetchAllUsersStart());
+      } else {
+        toast.error("Update the user error!");
+        dispatch(updateUserFailed());
+      }
+    } catch (e) {
+      toast.error("Update the user error!");
+      dispatch(updateUserFailed());
+      console.log("updateAUser error", e);
+    }
+  };
+};
+
+export const updateUserSuccess = () => ({
+  type: actionTypes.UPDATE_USER_SUCCESS,
+});
+
+export const updateUserFailed = () => ({
+  type: actionTypes.UPDATE_USER_FAILED,
+});
+
+export const fetchTopDoctor = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getTopDoctorHomeService("");
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
+          dataDoctors: res.data,
+        });
+      } else {
+        dispatch({ type: actionTypes.FETCH_TOP_DOCTOR_FAILED });
+      }
+    } catch (e) {
+      dispatch({ type: actionTypes.FETCH_TOP_DOCTOR_FAILED });
+      console.log("fetchTopDoctor error", e);
+    }
+  };
+};

@@ -21,6 +21,11 @@
     "child5": "Sức khỏe tinh thần",
     "child6": "Khám nha khoa"
   },
+  "outstandingdoctor": {
+    "featured-doctor": "Bác sĩ nổi bật tuần qua",
+    "see-more": "Xem thêm"
+  },
+
   "menu": {
     "admin": {
       "manage-user": "Người dùng",
@@ -47,6 +52,7 @@
     "role": "Vai trò",
     "position": "Chức danh",
     "image": "Ảnh đại diện",
-    "btn-add": "Lưu người dùng"
+    "btn-add": "Lưu người dùng",
+    "btn-edit": "Lưu thay đổi"
   }
 }

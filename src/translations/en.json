@@ -21,6 +21,10 @@
     "child5": "Mental health",
     "child6": "Dental examination"
   },
+  "outstandingdoctor": {
+    "featured-doctor": "Last week's featured doctor",
+    "see-more": "See more"
+  },
   "menu": {
     "admin": {
       "manage-user": "Users System",
@@ -47,6 +51,7 @@
     "role": "Role",
     "position": "Position",
     "image": "Avatar",
-    "btn-add": "Save User"
+    "btn-add": "Save User",
+    "btn-edit": "Edit User"
   }
 }
