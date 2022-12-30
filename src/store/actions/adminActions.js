@@ -6,6 +6,8 @@ import {
   deleteUserService,
   editUserService,
   getTopDoctorHomeService,
+  getAllDoctorsService,
+  saveDetailDoctorService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -199,7 +201,7 @@ export const updateUserFailed = () => ({
   type: actionTypes.UPDATE_USER_FAILED,
 });
 
-export const fetchTopDoctor = () => {
+export const fetchTopDoctors = () => {
   return async (dispatch, getState) => {
     try {
       let res = await getTopDoctorHomeService("");
@@ -213,7 +215,50 @@ export const fetchTopDoctor = () => {
       }
     } catch (e) {
       dispatch({ type: actionTypes.FETCH_TOP_DOCTOR_FAILED });
-      console.log("fetchTopDoctor error", e);
+      console.log("fetchTopDoctors error", e);
+    }
+  };
+};
+
+export const fetchAllDoctors = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllDoctorsService();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
+          dataAllDoctors: res.data,
+        });
+      } else {
+        dispatch({ type: actionTypes.FETCH_ALL_DOCTOR_FAILED });
+      }
+    } catch (e) {
+      dispatch({ type: actionTypes.FETCH_ALL_DOCTOR_FAILED });
+      console.log("fetchAllDoctors error", e);
+    }
+  };
+};
+
+export const saveDetailDoctor = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await saveDetailDoctorService(data);
+      console.log(res);
+      if (res && res.errCode === 0) {
+        toast.success("Save info detail doctor succeed!");
+        dispatch({
+          type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS,
+        });
+      } else {
+        toast.error("Save info detail doctor error!");
+        dispatch({
+          type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED,
+        });
+      }
+    } catch (e) {
+      toast.error("Save info detail doctor error!");
+      dispatch({ type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED });
+      console.log("saveDetailDoctor error", e);
     }
   };
 };

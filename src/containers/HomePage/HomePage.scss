@@ -19,6 +19,9 @@
         background: #fffefe !important;
     }
 }
+.slick-disabled {
+    display: none !important;
+}
 
 .slick-next:before {
     font-family: FontAwesome !important;
@@ -44,6 +47,7 @@
     }
     .section-body {
         .section-customize {
+            cursor: pointer;
             .bg-image {
                 width: 278px;
                 height: 150px;

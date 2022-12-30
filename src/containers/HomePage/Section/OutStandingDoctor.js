@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils/constant";
-
+import { withRouter } from "react-router";
 class OutStandingDoctor extends Component {
   constructor(props) {
     super(props);
@@ -23,19 +23,24 @@ class OutStandingDoctor extends Component {
       });
     }
   }
+  handleViewDetailDoctor = (doctor) => {
+    if (this.props.history) {
+      this.props.history.push(`detail-doctor/${doctor.id}`);
+    }
+  };
   render() {
     let { language } = this.props;
     let arrDoctors = this.state.arrDoctors;
-    arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors);
+    // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors);
     return (
       <div className="section-share section-outstanding-doctor">
         <div className="section-container">
           <div className="section-header">
             <span className="title-section">
-              <FormattedMessage id="outstandingdoctor.featured-doctor" />
+              <FormattedMessage id="homepage.featured-doctor" />
             </span>
             <button className="btn-section">
-              <FormattedMessage id="outstandingdoctor.see-more" />
+              <FormattedMessage id="homepage.see-more" />
             </button>
           </div>
           <div className="section-body">
@@ -52,7 +57,11 @@ class OutStandingDoctor extends Component {
                   let nameVi = `${item.positionData.valueVi}, ${item.fullName}`;
                   let nameEn = `${item.positionData.valueEn}, ${item.fullName}`;
                   return (
-                    <div className="section-customize" key={index}>
+                    <div
+                      className="section-customize"
+                      key={index}
+                      onClick={() => this.handleViewDetailDoctor(item)}
+                    >
                       <div className="customize-border">
                         <div className="outer-bg">
                           <div
@@ -90,8 +99,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadTopDoctors: () => dispatch(actions.fetchTopDoctor()),
+    loadTopDoctors: () => dispatch(actions.fetchTopDoctors()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor)
+);
