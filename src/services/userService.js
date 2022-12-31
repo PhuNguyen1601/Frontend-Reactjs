@@ -43,6 +43,11 @@ const saveDetailDoctorService = (data) => {
 const getDetailInfoDoctorService = (inputId) => {
   return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`);
 };
+
+const getMarkdownDoctorService = (inputId) => {
+  return axios.get(`/api/get-markdown-doctor?id=${inputId}`);
+};
+
 export {
   handleLoginApi,
   getAllUsers,
@@ -54,4 +59,5 @@ export {
   getAllDoctorsService,
   saveDetailDoctorService,
   getDetailInfoDoctorService,
+  getMarkdownDoctorService,
 };

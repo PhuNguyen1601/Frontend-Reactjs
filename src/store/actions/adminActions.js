@@ -8,6 +8,7 @@ import {
   getTopDoctorHomeService,
   getAllDoctorsService,
   saveDetailDoctorService,
+  getMarkdownDoctorService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -259,6 +260,27 @@ export const saveDetailDoctor = (data) => {
       toast.error("Save info detail doctor error!");
       dispatch({ type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED });
       console.log("saveDetailDoctor error", e);
+    }
+  };
+};
+
+export const fetchMarkdownDoctor = (doctorId) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getMarkdownDoctorService(doctorId);
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_MARKDOWN_DOCTOR_SUCCESS,
+          dataMarkdownDoctor: res.data,
+        });
+      } else {
+        dispatch({ type: actionTypes.FETCH_MARKDOWN_DOCTOR_FAILED });
+      }
+    } catch (e) {
+      dispatch({
+        type: actionTypes.FETCH_MARKDOWN_DOCTOR_FAILED,
+      });
+      console.log("fetchMarkdownDoctor error", e);
     }
   };
 };
