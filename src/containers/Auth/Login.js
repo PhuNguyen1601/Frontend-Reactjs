@@ -50,6 +50,11 @@ class Login extends Component {
       }
     }
   };
+  handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.keyCode === 13) {
+      this.handleLogin();
+    }
+  };
   render() {
     return (
       <div className="login-background">
@@ -73,6 +78,7 @@ class Login extends Component {
                     type="password"
                     value={this.state.password}
                     onChange={(event) => this.handleOnChangePassword(event)}
+                    onKeyDown={(event) => this.handleKeyDown(event)}
                     autoComplete="off"
                     required
                   />

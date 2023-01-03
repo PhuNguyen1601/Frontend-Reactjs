@@ -64,7 +64,7 @@ class DetailDoctor extends Component {
               </div>
             </div>
           </div>
-          <div className="schedule-doctor">aasdas</div>
+          <div className="schedule-doctor"></div>
           <div className="detail-info-doctor">
             {detailDoctor &&
               detailDoctor.Markdown &&
