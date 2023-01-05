@@ -4,11 +4,14 @@ import HomeHeader from "../../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
 import { getDetailInfoDoctorService } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
+import DoctorSchedule from "./DoctorSchedule";
+import DoctorExtraInfo from "./DoctorExtraInfo";
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       detailDoctor: {},
+      currentDoctorId: -1,
     };
   }
   async componentDidMount() {
@@ -18,6 +21,9 @@ class DetailDoctor extends Component {
       this.props.match.params.id
     ) {
       let id = this.props.match.params.id;
+      this.setState({
+        currentDoctorId: id,
+      });
       let res = await getDetailInfoDoctorService(id);
       if (res && res.errCode === 0) {
         this.setState({
@@ -29,7 +35,6 @@ class DetailDoctor extends Component {
 
   componentDidUpdate(prevProps, prevState) {}
   render() {
-    console.log(this.state);
     let { detailDoctor } = this.state;
     let { language } = this.props;
     let nameVi = "";
@@ -64,7 +69,16 @@ class DetailDoctor extends Component {
               </div>
             </div>
           </div>
-          <div className="schedule-doctor"></div>
+          <div className="schedule-doctor">
+            <div className="content-left">
+              <DoctorSchedule doctorIdFromParent={this.state.currentDoctorId} />
+            </div>
+            <div className="content-right">
+              <DoctorExtraInfo
+                doctorIdFromParent={this.state.currentDoctorId}
+              />
+            </div>
+          </div>
           <div className="detail-info-doctor">
             {detailDoctor &&
               detailDoctor.Markdown &&

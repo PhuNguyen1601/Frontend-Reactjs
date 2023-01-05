@@ -7,6 +7,7 @@ import * as actions from "../../../store/actions";
 import { CRUD_ACTIONS, LANGUAGES, DATEFORMAT } from "../../../utils";
 import DatePicker from "../../../components/Input/DatePicker";
 import _ from "lodash";
+import moment from "moment";
 import { toast } from "react-toastify";
 import { saveBulkScheduleDoctorService } from "../../../services/userService";
 
@@ -82,11 +83,12 @@ class ManageSchedule extends Component {
   handleSaveSchedule = async () => {
     let { rangeTime, selectedDoctor, currentDate } = this.state;
     let result = [];
+    console.log(this.state);
     if (selectedDoctor && _.isEmpty(selectedDoctor)) {
       toast.error(<FormattedMessage id="manage-schedule.error-doctor" />);
       return;
     }
-    if (!currentDate) {
+    if (!currentDate || isNaN(currentDate)) {
       toast.error(<FormattedMessage id="manage-schedule.error-date" />);
       return;
     }
@@ -112,10 +114,16 @@ class ManageSchedule extends Component {
       doctorId: selectedDoctor.value,
       date: formatedDate,
     });
+    if (res && res.errCode === 0) {
+      toast.success(<FormattedMessage id="manage-schedule.success-save" />);
+    } else {
+      toast.error(<FormattedMessage id="manage-schedule.error-save" />);
+    }
   };
   render() {
     let { rangeTime } = this.state;
     let { language } = this.props;
+    let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     return (
       <div className="manage-schedule-container">
         <div className="m-s-title title">
@@ -141,9 +149,8 @@ class ManageSchedule extends Component {
                 className="form-control"
                 onChange={this.handleOnChangeDatePicker}
                 value={this.state.currentDate}
-                minDate={new Date()}
+                minDate={yesterday}
               />
-              {/* <input className="form-control" /> */}
             </div>
             <div className="col-12 pick-hour-container mt-3">
               {rangeTime &&

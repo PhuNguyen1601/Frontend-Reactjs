@@ -8,7 +8,9 @@ import {
   getTopDoctorHomeService,
   getAllDoctorsService,
   saveDetailDoctorService,
-  getMarkdownDoctorService,
+  getDetailInfoDoctorService,
+  getScheduleByDateService,
+  getExtraInfoDoctorService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -263,23 +265,23 @@ export const saveDetailDoctor = (data) => {
   };
 };
 
-export const fetchMarkdownDoctor = (doctorId) => {
+export const fetchInfoDoctor = (doctorId) => {
   return async (dispatch, getState) => {
     try {
-      let res = await getMarkdownDoctorService(doctorId);
+      let res = await getDetailInfoDoctorService(doctorId);
       if (res && res.errCode === 0) {
         dispatch({
-          type: actionTypes.FETCH_MARKDOWN_DOCTOR_SUCCESS,
-          dataMarkdownDoctor: res.data,
+          type: actionTypes.FETCH_INFO_DOCTOR_SUCCESS,
+          dataInfoDoctor: res.data,
         });
       } else {
-        dispatch({ type: actionTypes.FETCH_MARKDOWN_DOCTOR_FAILED });
+        dispatch({ type: actionTypes.FETCH_INFO_DOCTOR_FAILED });
       }
     } catch (e) {
       dispatch({
-        type: actionTypes.FETCH_MARKDOWN_DOCTOR_FAILED,
+        type: actionTypes.FETCH_INFO_DOCTOR_FAILED,
       });
-      console.log("fetchMarkdownDoctor error", e);
+      console.log("fetchInfoDoctor error", e);
     }
   };
 };
@@ -301,6 +303,89 @@ export const fetchAllScheduleTime = () => {
         type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED,
       });
       console.log("fetchAllScheduleTime error", e);
+    }
+  };
+};
+
+export const fetchScheduleTime = (doctorId, date) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getScheduleByDateService(doctorId, date);
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_SCHEDULE_TIME_SUCCESS,
+          dataSchedule: res.data,
+        });
+      } else {
+        dispatch({ type: actionTypes.FETCH_SCHEDULE_TIME_FAILED });
+      }
+    } catch (e) {
+      dispatch({
+        type: actionTypes.FETCH_SCHEDULE_TIME_FAILED,
+      });
+      console.log("fetchScheduleTime error", e);
+    }
+  };
+};
+
+export const getRequiredDoctorInfo = () => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: actionTypes.FETCH_REQUIRED_DOCTOR_INFO_START,
+      });
+      let resPrice = await getAllCodeService("PRICE");
+      let resPayment = await getAllCodeService("PAYMENT");
+      let resProvince = await getAllCodeService("PROVINCE");
+      if (
+        resPrice &&
+        resPrice.errCode === 0 &&
+        resPayment &&
+        resPayment.errCode === 0 &&
+        resProvince &&
+        resProvince.errCode === 0
+      ) {
+        let data = {
+          resPrice: resPrice.data,
+          resPayment: resPayment.data,
+          resProvince: resProvince.data,
+        };
+        dispatch(fetchRequiredDoctorInfoSuccess(data));
+      } else {
+        dispatch(fetchRequiredDoctorInfoFailed());
+      }
+    } catch (e) {
+      dispatch(fetchRequiredDoctorInfoFailed());
+      console.log("getRequiredDoctorInfo error", e);
+    }
+  };
+};
+export const fetchRequiredDoctorInfoSuccess = (allRequiredData) => ({
+  type: actionTypes.FETCH_REQUIRED_DOCTOR_INFO_SUCCESS,
+  data: allRequiredData,
+});
+
+export const fetchRequiredDoctorInfoFailed = () => ({
+  type: actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAILED,
+});
+
+export const fetchExtraInfoDoctor = (doctorId) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getExtraInfoDoctorService(doctorId);
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_EXTRA_INFO_DOCTOR_SUCCESS,
+          dataExtraInfoDoctor: res.data,
+        });
+      } else {
+        dispatch({ type: actionTypes.FETCH_EXTRA_INFO_DOCTOR_FAILED });
+      }
+    } catch (e) {
+      dispatch({
+        type: actionTypes.FETCH_EXTRA_INFO_DOCTOR_FAILED,
+      });
+      console.log("fetchExtraInfoDoctor error", e);
     }
   };
 };

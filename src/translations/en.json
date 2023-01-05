@@ -64,6 +64,39 @@
     "save-info": "Save info",
     "error-doctor": "Please choose a doctor!",
     "error-date": "Please select a date!",
-    "error-time": "Please select the time!"
+    "error-time": "Please select the time!",
+    "error-save": "Save failed medical examination schedule!",
+    "success-save": "Save the successful medical examination!"
+  },
+  "patient": {
+    "detail-doctor": {
+      "schedule": "Schedule",
+      "no-plan": "The doctor does not have an appointment for today. Please choose another date!",
+      "choose": "Choose ",
+      "book-free": " and book (free)"
+    },
+    "extra-info-doctor": {
+      "text-address": "Address of examination",
+      "price": "EXAMINATION PRICE:",
+      "detail": "See details",
+      "prices": "Examination price",
+      "payment": "The patient can pay the cost in the form of:",
+      "hide-price": "Hide price list"
+    }
+  },
+  "admin": {
+    "manage-doctor": {
+      "title": "Create more doctor information",
+      "select-doctor": "Choose doctor",
+      "intro": "Introduction",
+      "save-info": "Save info",
+      "add-info": "Create info",
+      "select-price": "Price of medical examination",
+      "select-payment": "Payment methods",
+      "select-province": "Province",
+      "nameClinic": "Clinic",
+      "addressClinic": "Clinic address",
+      "note": "Note"
+    }
   }
 }

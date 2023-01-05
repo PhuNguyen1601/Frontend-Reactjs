@@ -8,8 +8,11 @@ const initialState = {
   users: [],
   topDoctors: [],
   allDoctors: [],
-  markdownDoctor: [],
+  infoDoctor: [],
   allScheduleTime: [],
+  allSchedule: [],
+  allRequiredDoctorInfo: [],
+  extraInfoDoctor: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -89,14 +92,14 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    //markdown doctor
-    case actionTypes.FETCH_MARKDOWN_DOCTOR_SUCCESS:
-      state.markdownDoctor = action.dataMarkdownDoctor;
+    //info doctor
+    case actionTypes.FETCH_INFO_DOCTOR_SUCCESS:
+      state.infoDoctor = action.dataInfoDoctor;
       return {
         ...state,
       };
-    case actionTypes.FETCH_MARKDOWN_DOCTOR_FAILED:
-      state.markdownDoctor = [];
+    case actionTypes.FETCH_INFO_DOCTOR_FAILED:
+      state.infoDoctor = [];
       return {
         ...state,
       };
@@ -108,6 +111,40 @@ const adminReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
       state.allScheduleTime = [];
+      return {
+        ...state,
+      };
+    //schedule doctor
+    case actionTypes.FETCH_SCHEDULE_TIME_SUCCESS:
+      state.allSchedule = action.dataSchedule;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_SCHEDULE_TIME_FAILED:
+      state.allSchedule = [];
+      return {
+        ...state,
+      };
+
+    //doctor info
+    case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_SUCCESS:
+      state.allRequiredDoctorInfo = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAILED:
+      state.allRequiredDoctorInfo = [];
+      return {
+        ...state,
+      };
+    //extra info doctor
+    case actionTypes.FETCH_EXTRA_INFO_DOCTOR_SUCCESS:
+      state.extraInfoDoctor = action.dataExtraInfoDoctor;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_EXTRA_INFO_DOCTOR_FAILED:
+      state.extraInfoDoctor = [];
       return {
         ...state,
       };
