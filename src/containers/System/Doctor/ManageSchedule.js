@@ -4,10 +4,9 @@ import "./ManageSchedule.scss";
 import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import * as actions from "../../../store/actions";
-import { CRUD_ACTIONS, LANGUAGES, DATEFORMAT } from "../../../utils";
+import { LANGUAGES } from "../../../utils";
 import DatePicker from "../../../components/Input/DatePicker";
 import _ from "lodash";
-import moment from "moment";
 import { toast } from "react-toastify";
 import { saveBulkScheduleDoctorService } from "../../../services/userService";
 

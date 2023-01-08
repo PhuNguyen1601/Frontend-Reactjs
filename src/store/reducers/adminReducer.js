@@ -13,6 +13,7 @@ const initialState = {
   allSchedule: [],
   allRequiredDoctorInfo: [],
   extraInfoDoctor: [],
+  profileDoctor: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -148,7 +149,17 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-
+    //profile doctor
+    case actionTypes.FETCH_PROFILE_DOCTOR_SUCCESS:
+      state.profileDoctor = action.dataProfileDoctor;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_PROFILE_DOCTOR_FAILED:
+      state.profileDoctor = [];
+      return {
+        ...state,
+      };
     default:
       return state;
   }

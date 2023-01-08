@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import "./DoctorSchedule.scss";
 import { LANGUAGES } from "../../../utils";
 import moment from "moment";
-import * as actions from "../../../store/actions";
+import * as actions from "~/store/actions";
 import { FormattedMessage } from "react-intl";
-
+import BookingModal from "~/containers/Patient/Doctor/Modal/BookingModal";
 import "moment/locale/vi";
 class DoctorSchedule extends Component {
   constructor(props) {
@@ -14,6 +14,8 @@ class DoctorSchedule extends Component {
       allDays: [],
       selectedSchedule: {},
       arrSchedule: {},
+      isOpenModalBooking: false,
+      dataScheduleTimeModal: {},
     };
   }
   async componentDidMount() {
@@ -87,74 +89,93 @@ class DoctorSchedule extends Component {
       this.props.fetchScheduleTime(id, value);
     }
   };
+  handleOnClickScheduleTime = (time) => {
+    this.setState({
+      isOpenModalBooking: true,
+      dataScheduleTimeModal: time,
+    });
+  };
+  closeBookingModal = () => {
+    this.setState({
+      isOpenModalBooking: false,
+    });
+  };
   render() {
     let { allDays, arrSchedule } = this.state;
     let { language } = this.props;
     return (
-      <div className="doctor-schedule-container">
-        <div className="all-schedule">
-          <select onChange={(event) => this.handleOnchangeSelect(event)}>
-            {allDays &&
-              allDays.length > 0 &&
-              allDays.map((item, index) => {
-                return (
-                  <option value={item.value} key={index}>
-                    {item.label}
-                  </option>
-                );
-              })}
-            x
-          </select>
-        </div>
-        <div className="all-available-time">
-          <div className="text-calendar">
-            <i className="fas fa-calendar-alt">
-              <span>
-                <FormattedMessage id="patient.detail-doctor.schedule" />
-              </span>
-            </i>
+      <>
+        <div className="doctor-schedule-container">
+          <div className="all-schedule">
+            <select onChange={(event) => this.handleOnchangeSelect(event)}>
+              {allDays &&
+                allDays.length > 0 &&
+                allDays.map((item, index) => {
+                  return (
+                    <option value={item.value} key={index}>
+                      {item.label}
+                    </option>
+                  );
+                })}
+              x
+            </select>
           </div>
-          <div className="time-content">
-            {arrSchedule && arrSchedule.length > 0 ? (
-              <>
-                <div className="time-content-btns">
-                  {arrSchedule.map((item, index) => {
-                    let timeDisplay =
-                      language === LANGUAGES.VI
-                        ? item.timeTypeData.valueVi
-                        : item.timeTypeData.valueEn;
-                    return (
-                      <button
-                        className={
-                          language === LANGUAGES.VI
-                            ? "btn btn-vie"
-                            : "btn btn-en"
-                        }
-                        key={index}
-                      >
-                        {timeDisplay}
-                      </button>
-                    );
-                  })}
-                </div>
-                <div className="book-free">
+          <div className="all-available-time">
+            <div className="text-calendar">
+              <i className="fas fa-calendar-alt">
+                <span>
+                  <FormattedMessage id="patient.detail-doctor.schedule" />
+                </span>
+              </i>
+            </div>
+            <div className="time-content">
+              {arrSchedule && arrSchedule.length > 0 ? (
+                <>
+                  <div className="time-content-btns">
+                    {arrSchedule.map((item, index) => {
+                      let timeDisplay =
+                        language === LANGUAGES.VI
+                          ? item.timeTypeData.valueVi
+                          : item.timeTypeData.valueEn;
+                      return (
+                        <button
+                          className={
+                            language === LANGUAGES.VI
+                              ? "btn btn-vie"
+                              : "btn btn-en"
+                          }
+                          key={index}
+                          onClick={() => this.handleOnClickScheduleTime(item)}
+                        >
+                          {timeDisplay}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="book-free">
+                    <span>
+                      <FormattedMessage id="patient.detail-doctor.choose" />
+                      <i className="far fa-hand-point-up"></i>
+                      <FormattedMessage id="patient.detail-doctor.book-free" />
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <div className="schedule-content">
                   <span>
-                    <FormattedMessage id="patient.detail-doctor.choose" />
-                    <i className="far fa-hand-point-up"></i>
-                    <FormattedMessage id="patient.detail-doctor.book-free" />
+                    <FormattedMessage id="patient.detail-doctor.no-plan" />
                   </span>
                 </div>
-              </>
-            ) : (
-              <div className="schedule-content">
-                <span>
-                  <FormattedMessage id="patient.detail-doctor.no-plan" />
-                </span>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
-      </div>
+        <BookingModal
+          isOpenModal={this.state.isOpenModalBooking}
+          closeBookingModal={this.closeBookingModal}
+          dataTime={this.state.dataScheduleTimeModal}
+        />
+      </>
     );
   }
 }

@@ -11,6 +11,7 @@ import {
   getDetailInfoDoctorService,
   getScheduleByDateService,
   getExtraInfoDoctorService,
+  getProfileDoctorService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -386,6 +387,27 @@ export const fetchExtraInfoDoctor = (doctorId) => {
         type: actionTypes.FETCH_EXTRA_INFO_DOCTOR_FAILED,
       });
       console.log("fetchExtraInfoDoctor error", e);
+    }
+  };
+};
+
+export const fetchProfileDoctor = (doctorId) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getProfileDoctorService(doctorId);
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_PROFILE_DOCTOR_SUCCESS,
+          dataProfileDoctor: res.data,
+        });
+      } else {
+        dispatch({ type: actionTypes.FETCH_PROFILE_DOCTOR_FAILED });
+      }
+    } catch (e) {
+      dispatch({
+        type: actionTypes.FETCH_PROFILE_DOCTOR_FAILED,
+      });
+      console.log("fetchProfileDoctor error", e);
     }
   };
 };

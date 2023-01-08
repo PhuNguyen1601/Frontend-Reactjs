@@ -43,6 +43,7 @@ class DetailDoctor extends Component {
       nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.fullName}`;
       nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.fullName}`;
     }
+
     return (
       <React.Fragment>
         <HomeHeader isShowBanner={false} />

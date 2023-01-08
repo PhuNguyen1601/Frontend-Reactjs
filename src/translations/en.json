@@ -82,6 +82,9 @@
       "prices": "Examination price",
       "payment": "The patient can pay the cost in the form of:",
       "hide-price": "Hide price list"
+    },
+    "profile-doctor": {
+      "free-booking": "Free booking"
     }
   },
   "admin": {
