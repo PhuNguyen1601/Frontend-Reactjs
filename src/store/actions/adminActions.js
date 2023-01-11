@@ -12,6 +12,7 @@ import {
   getScheduleByDateService,
   getExtraInfoDoctorService,
   getProfileDoctorService,
+  getAllSpecialtyService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -150,7 +151,6 @@ export const deleteAUser = (userId) => {
   return async (dispatch, getState) => {
     try {
       let res = await deleteUserService(userId);
-      console.log("check api", res);
       if (res && res.errCode === 0) {
         toast.success("Delete the user succeed!");
         dispatch(deleteUserSuccess());
@@ -179,7 +179,6 @@ export const updateAUser = (data) => {
   return async (dispatch, getState) => {
     try {
       let res = await editUserService(data);
-      console.log("check api", res);
       if (res && res.errCode === 0) {
         toast.success("Update the user succeed!");
         dispatch(updateUserSuccess());
@@ -246,7 +245,6 @@ export const saveDetailDoctor = (data) => {
   return async (dispatch, getState) => {
     try {
       let res = await saveDetailDoctorService(data);
-      console.log(res);
       if (res && res.errCode === 0) {
         toast.success("Save info detail doctor succeed!");
         dispatch({
@@ -338,18 +336,22 @@ export const getRequiredDoctorInfo = () => {
       let resPrice = await getAllCodeService("PRICE");
       let resPayment = await getAllCodeService("PAYMENT");
       let resProvince = await getAllCodeService("PROVINCE");
+      let resSpecialty = await getAllSpecialtyService();
       if (
         resPrice &&
         resPrice.errCode === 0 &&
         resPayment &&
         resPayment.errCode === 0 &&
         resProvince &&
-        resProvince.errCode === 0
+        resProvince.errCode === 0 &&
+        resSpecialty &&
+        resSpecialty.errCode === 0
       ) {
         let data = {
           resPrice: resPrice.data,
           resPayment: resPayment.data,
           resProvince: resProvince.data,
+          resSpecialty: resSpecialty.data,
         };
         dispatch(fetchRequiredDoctorInfoSuccess(data));
       } else {
@@ -408,6 +410,29 @@ export const fetchProfileDoctor = (doctorId) => {
         type: actionTypes.FETCH_PROFILE_DOCTOR_FAILED,
       });
       console.log("fetchProfileDoctor error", e);
+    }
+  };
+};
+
+export const fetchAllSpecialty = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllSpecialtyService();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_SPECIALTY_SUCCESS,
+          dataAllSpecialty: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_SPECIALTY_FAILED,
+        });
+      }
+    } catch (e) {
+      dispatch({
+        type: actionTypes.FETCH_ALL_SPECIALTY_FAILED,
+      });
+      console.log("fetchAllSpecialty error", e);
     }
   };
 };

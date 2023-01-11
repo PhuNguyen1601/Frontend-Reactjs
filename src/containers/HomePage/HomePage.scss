@@ -52,6 +52,18 @@
     }
 
     .section-body {
+        .specialty-child {
+            cursor: pointer;
+
+            .specialty-name {
+                padding: 10px 0;
+
+                &:hover {
+                    color: #45c3d2;
+                }
+            }
+        }
+
         .section-customize {
             cursor: pointer;
 
@@ -64,7 +76,7 @@
                 background-color   : #eee;
 
                 &.section-specialty {
-                    background-image: url(../../assets/images/specialty/ck-1.jpg);
+                    // background-image: url(../../assets/images/specialty/ck-1.jpg);
                 }
 
                 &.section-medical-facility {

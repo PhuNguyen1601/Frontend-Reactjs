@@ -1,4 +1,8 @@
 .profile-doctor-content {
+    .price {
+        padding-top: 5px;
+    }
+
     .intro-doctor {
         display: flex;
 
@@ -24,7 +28,12 @@
             }
 
             .down {
-                text-align: justify;
+                padding-top: 10px;
+                text-align : justify;
+
+                .booking-free {
+                    font-style: italic
+                }
             }
         }
     }

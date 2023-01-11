@@ -14,6 +14,7 @@ const initialState = {
   allRequiredDoctorInfo: [],
   extraInfoDoctor: [],
   profileDoctor: [],
+  allSpecialty: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -157,6 +158,17 @@ const adminReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCH_PROFILE_DOCTOR_FAILED:
       state.profileDoctor = [];
+      return {
+        ...state,
+      };
+    //all specialty
+    case actionTypes.FETCH_ALL_SPECIALTY_SUCCESS:
+      state.allSpecialty = action.dataAllSpecialty;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_SPECIALTY_FAILED:
+      state.allSpecialty = [];
       return {
         ...state,
       };

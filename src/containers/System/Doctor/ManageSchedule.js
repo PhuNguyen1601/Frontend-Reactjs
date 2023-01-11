@@ -82,7 +82,6 @@ class ManageSchedule extends Component {
   handleSaveSchedule = async () => {
     let { rangeTime, selectedDoctor, currentDate } = this.state;
     let result = [];
-    console.log(this.state);
     if (selectedDoctor && _.isEmpty(selectedDoctor)) {
       toast.error(<FormattedMessage id="manage-schedule.error-doctor" />);
       return;

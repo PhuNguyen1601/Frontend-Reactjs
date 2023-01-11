@@ -14,7 +14,15 @@ class DoctorExtraInfo extends Component {
       arrExtraInfoDoctor: [],
     };
   }
-  async componentDidMount() {}
+  async componentDidMount() {
+    if (this.props.doctorIdFromParent) {
+      this.props.fetchExtraInfoDoctor(this.props.doctorIdFromParent);
+      let extraInfoDoctor = this.props.extraInfoDoctor;
+      this.setState({
+        arrExtraInfoDoctor: extraInfoDoctor,
+      });
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.language !== this.props.language) {

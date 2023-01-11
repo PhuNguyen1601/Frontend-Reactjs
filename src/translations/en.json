@@ -1,6 +1,6 @@
 {
   "homeheader": {
-    "speciality": "Medical specialty",
+    "specialty": "Medical specialty",
     "search-doctor": "Find a doctor by specialty",
     "health-facilities": "Health Facilities",
     "select-room": "Choose hospital clinic",
@@ -23,7 +23,8 @@
   },
   "homepage": {
     "featured-doctor": "Last week's featured doctor",
-    "see-more": "More Info"
+    "see-more": "More Info",
+    "specialty-popular": "Popular specialties"
   },
   "menu": {
     "admin": {
@@ -85,12 +86,26 @@
     },
     "profile-doctor": {
       "free-booking": "Free booking"
+    },
+    "booking-modal": {
+      "title": "Information to book a medical appointment",
+      "fullName": "Full Name",
+      "phoneNumber": "Phone Number",
+      "email": "Email address",
+      "address": "Address",
+      "reason": "Reasons for medical examination",
+      "birthday": "Date of birth",
+      "genders": "Gender",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
     }
   },
   "admin": {
     "manage-doctor": {
       "title": "Create more doctor information",
       "select-doctor": "Choose doctor",
+      "select-clinic": "Choose clinic",
+      "select-specialty": "Choose specialty",
       "intro": "Introduction",
       "save-info": "Save info",
       "add-info": "Create info",

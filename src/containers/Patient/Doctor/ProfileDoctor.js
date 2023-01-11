@@ -20,6 +20,10 @@ class ProfileDoctor extends Component {
     let id = this.props.doctorId;
     if (id) {
       this.props.fetchProfileDoctor(id);
+      let arrProfileDoctor = this.props.profileDoctor;
+      this.setState({
+        profileDoctor: arrProfileDoctor,
+      });
     }
   }
 
@@ -53,7 +57,7 @@ class ProfileDoctor extends Component {
           <div>
             {time} - {date}
           </div>
-          <div>
+          <div className="booking-free">
             <FormattedMessage id="patient.profile-doctor.free-booking" />
           </div>
         </>
